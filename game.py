@@ -42,15 +42,21 @@ class Game:
         self.rooms.append(swamp)
         castle = Room("Castle", "dans un énorme château fort avec des douves et un pont levis. Sur les tours, des flèches en or massif.")
         self.rooms.append(castle)
+        lieu1 = Room("lieu1", "dans le lieu1.")
+        self.rooms.append(lieu1)
+        lieu2 = Room("lieu2", "dans le lieu2.")
+        self.rooms.append(lieu2)
 
         # Create exits for rooms
 
-        forest.exits = {"N" : cave, "E" : None, "S" : castle, "O" : None}
-        tower.exits = {"N" : cottage, "E" : None, "S" : None, "O" : None}
-        cave.exits = {"N" : None, "E" : cottage, "S" : forest, "O" : None}
+        forest.exits = {"N" : cave, "E" : tower, "S" : castle, "O" : None}
+        tower.exits = {"N" : cottage, "E" : None, "S" : swamp, "O" : forest}
+        cave.exits = {"N" : None, "E" : cottage, "S" : forest, "O" : lieu1}
         cottage.exits = {"N" : None, "E" : None, "S" : tower, "O" : cave}
         swamp.exits = {"N" : tower, "E" : None, "S" : None, "O" : castle}
-        castle.exits = {"N" : forest, "E" : swamp, "S" : None, "O" : None}
+        castle.exits = {"N" : forest, "E" : swamp, "S" : lieu2, "O" : None}
+        lieu1.exits = {"N" : None, "E" : cave, "S" : None, "O" : None}
+        lieu2.exits = {"N" : castle, "E" : None, "S" : None, "O" : None}
 
         # Setup player and starting room
 
