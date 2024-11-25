@@ -5,6 +5,7 @@ class Player():
     def __init__(self, name):
         self.name = name
         self.current_room = None
+        self.history = []
     
     # Define the move method.
     def move(self, direction):
@@ -21,4 +22,12 @@ class Player():
         print(self.current_room.get_long_description())
         return True
 
-    
+    def get_history(self, direction) :
+        """Créer un historique pour permettre au joueur de savoir où il en est dans le jeu"""
+        room = self.current_room.exits[direction]
+        for i in range(len(self.history)) :
+            if self.history[i] == room :
+                break
+            else :
+                self.history.append(room)
+        return self.history
