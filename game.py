@@ -25,43 +25,46 @@ class Game:
         self.commands["help"] = help
         quit = Command("quit", " : quitter le jeu", Actions.quit, 0)
         self.commands["quit"] = quit
-        go = Command("go", " <direction> : se déplacer dans une direction cardinale (N, E, S, O)", Actions.go, 1)
+        go = Command("go", " <direction> : se déplacer dans une direction cardinale (N, E, S, O, U, D)", Actions.go, 1)
         self.commands["go"] = go
         
         # Setup rooms
 
-        forest = Room("Forest", "dans une forêt enchantée. Vous entendez une brise légère à travers la cime des arbres.")
-        self.rooms.append(forest)
-        tower = Room("Tower", "dans une immense tour en pierre qui s'élève au dessus des nuages.")
-        self.rooms.append(tower)
-        cave = Room("Cave", "dans une grotte profonde et sombre. Des voix semblent provenir des profondeurs.")
-        self.rooms.append(cave)
-        cottage = Room("Cottage", "dans un petit chalet pittoresque avec un toit de chaume. Une épaisse fumée verte sort de la cheminée.")
-        self.rooms.append(cottage)
-        swamp = Room("Swamp", "dans un marécage sombre et ténébreux. L'eau bouillonne, les abords sont vaseux.")
-        self.rooms.append(swamp)
-        castle = Room("Castle", "dans un énorme château fort avec des douves et un pont levis. Sur les tours, des flèches en or massif.")
-        self.rooms.append(castle)
-        lieu1 = Room("lieu1", "dans le lieu1.")
-        self.rooms.append(lieu1)
-        lieu2 = Room("lieu2", "dans le lieu2.")
-        self.rooms.append(lieu2)
+        vestiaire1 = Room("Vestiaire1", "dans le vestiaire.")
+        self.rooms.append(vestiaire1)
+        entrainement = Room("Entrainement", "dans la salle d'entraînement.")
+        self.rooms.append(entrainement)
+        bar = Room("Bar", "au bar.")
+        self.rooms.append(bar)
+        stade1 = Room("Stade1", "dans le premier stade.")
+        self.rooms.append(stade1)
+        village = Room("Village", "dans le village.")
+        self.rooms.append(village)
+        stade2 = Room("Stade2", "dans le stade intermédiaire.")
+        self.rooms.append(stade2)
+        vestiaire2 = Room("vestiaire2", "dans le second vestiaire.")
+        self.rooms.append(vestiaire2)
+        sdt = Room("Sdt", "dans la salle des trophées.")
+        self.rooms.append(sdt)
+        stade3 = Room("Stade3", "dans le stade final.")
+        self.rooms.append(stade3)
 
         # Create exits for rooms
 
-        forest.exits = {"N" : cave, "E" : tower, "S" : castle, "O" : None}
-        tower.exits = {"N" : cottage, "E" : None, "S" : swamp, "O" : forest}
-        cave.exits = {"N" : None, "E" : cottage, "S" : forest, "O" : lieu1}
-        cottage.exits = {"N" : None, "E" : None, "S" : tower, "O" : cave}
-        swamp.exits = {"N" : tower, "E" : None, "S" : None, "O" : castle}
-        castle.exits = {"N" : forest, "E" : swamp, "S" : lieu2, "O" : None}
-        lieu1.exits = {"N" : None, "E" : cave, "S" : None, "O" : None}
-        lieu2.exits = {"N" : castle, "E" : None, "S" : None, "O" : None}
+        vestiaire1.exits = {"N" : None, "E" : entrainement, "S" : None, "O" : bar, "U" : None, "D" : None}
+        entrainement.exits = {"N" : None, "E" : None, "S" : stade1, "O" : vestiaire1, "U" : None, "D" : None}
+        bar.exits = {"N" : None, "E" : vestiaire1, "S" : None, "O" : None, "U" : None, "D" : None}
+        stade1.exits = {"N" : None, "E" : None, "S" : None, "O" : None, "U" : village, "D" : None}
+        village.exits = {"N" : None, "E" : None, "S" : None, "O" : stade2, "U" : None, "D" : None}
+        stade2.exits = {"N" : None, "E" : None, "S" : None, "O" : None, "U" : None, "D" : vestiaire2}
+        vestiaire2.exits = {"N" : None, "E" : sdt, "S" : None, "O" : None, "U" : None, "D" : None}
+        sdt.exits = {"N" : None, "E" : stade3, "S" : None, "O" : vestiaire2, "U" : None, "D" : None}
+        stade3.exits = {"N" : None, "E" : None, "S" : None, "O" : None, "U" : None, "D" : None}
 
         # Setup player and starting room
 
         self.player = Player(input("\nEntrez votre nom: "))
-        self.player.current_room = swamp
+        self.player.current_room = vestiaire1
 
     # Play the game
     def play(self):
