@@ -22,12 +22,18 @@ class Player():
         print(self.current_room.get_long_description())
         return True
 
-    def get_history(self, direction) :
-        """Créer un historique pour permettre au joueur de savoir où il en est dans le jeu"""
-        room = self.current_room.exits[direction]
-        for i in range(len(self.history)) :
-            if self.history[i] == room :
-                break
-            else :
-                self.history.append(room)
-        return self.history
+    def get_history(self,list_of_words, number_of_parameters) :
+        """Créer un historique pour permettre au joueur de savoir où il en est dans le jeu
+        on fait un try car si la liste est vide, il affiche une liste vide (pas esthétique)"""
+        try : 
+            if len(self.history) >=1 : # on regarde si on a visité une pièce au minimum
+                print("Les salles visitées sont :")
+                for room in self.history : #room balaye la liste
+                    print(f"   -{room.description}")
+            else: 
+                print("Vous n'avez visité aucune pièce.")
+        except Exception as e: 
+            print("Une erreur est survenue... ")
+                
+        
+        

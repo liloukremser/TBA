@@ -27,6 +27,10 @@ class Game:
         self.commands["quit"] = quit
         go = Command("go", " <direction> : se déplacer dans une direction cardinale (N, E, S, O, U, D)", Actions.go, 1)
         self.commands["go"] = go
+        get_history = Command("history", " : afficher les salles visitées", Player.get_history, 0)
+        self.commands["history"] = get_history
+        #back = Command("back", " : permet de revenir dans la salle précédente", Actions.back, 0)
+        #self.commands["back"] = back
         
         # Setup rooms
 
