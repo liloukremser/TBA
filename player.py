@@ -29,13 +29,27 @@ class Player():
         on fait un try car si la liste est vide, il affiche une liste vide (pas esthétique)"""
         try : 
             if len(self.history) > 1: # on regarde si on a visité une pièce au minimum
-                print("Les salles visitées sont :")
+                print("Vous êtes déjà allés : \n   -dans le vestiaire.")
                 for room in self.history[:-1] : #room balaye la liste
                     print(f"   -{room.description}")
             else: 
-                print("Vous n'avez visité aucune pièce.")
+                print("Vous avez visité le vestiaire.")
         except Exception as e: 
             print("Une erreur est survenue... ")
                 
         
+    def back(self) : 
+        try :
+            if len(self.history) > 1 :
+                self.history.pop()
+                self.current_room = self.history[-1]
+                print(self.current_room.get_long_description())
+                self.get_history()
+                return True
+            else :
+                print("Pas de retour en arrière possible.")
+                return False
         
+        except Exception as e :
+            print(f" Une erreur innatendue s'est produite lors du retour en arrière : {e}")
+            return False
