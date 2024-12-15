@@ -31,6 +31,8 @@ class Game:
         self.commands["history"] = history
         back = Command("back", " : permet de revenir dans la salle précédente", Actions.back, 0)
         self.commands["back"] = back
+        #inventory = Command("inventory", " : permet d'accéder à l'inventaire d'objets du joueur", Actions.inventory, 0)
+        #self.commands["inventory"] = inventory
         
         # Setup rooms
 

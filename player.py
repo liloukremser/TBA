@@ -27,15 +27,15 @@ class Player():
     def get_history(self) :
         """Créer un historique pour permettre au joueur de savoir où il en est dans le jeu
         on fait un try car si la liste est vide, il affiche une liste vide (pas esthétique)"""
-        try : 
+        try :
             if len(self.history) > 1: # on regarde si on a visité une pièce au minimum
                 print("Vous êtes déjà allés : \n   -dans le vestiaire.")
                 for room in self.history[:-1] : #room balaye la liste
                     print(f"   -{room.description}")
-            else: 
+            else:
                 print("Vous avez visité le vestiaire.")
-        except Exception as e: 
-            print("Une erreur est survenue... ")
+        except Exception as e:
+            print(f"Une erreur est survenue... ")
                 
         
     def back(self) : 
@@ -53,3 +53,13 @@ class Player():
         except Exception as e :
             print(f" Une erreur innatendue s'est produite lors du retour en arrière : {e}")
             return False
+
+    #def inventory(self):
+     #   try:
+     #       inventaire = {}
+      #      if :
+#
+ #           else :
+  #              print("Vous n'avez aucun item dans votre inventaire")
+   #     except Exception as e:
+    #        print(f"une erreur est survenue... ")
