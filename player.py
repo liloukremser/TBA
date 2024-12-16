@@ -6,6 +6,9 @@ class Player():
         self.name = name
         self.current_room = None
         self.history = []
+        self.inventory = {}
+        self.max_weight = 3
+        self.poids = 0
     
     # Define the move method.
     def move(self, direction):
@@ -54,12 +57,38 @@ class Player():
             print(f" Une erreur innatendue s'est produite lors du retour en arrière : {e}")
             return False
 
-    #def inventory(self):
-     #   try:
-     #       inventaire = {}
-      #      if :
-#
- #           else :
-  #              print("Vous n'avez aucun item dans votre inventaire")
-   #     except Exception as e:
-    #        print(f"une erreur est survenue... ")
+    def get_inventory(self):
+
+            if len(self.inventory) >= 1: # on regarde si on a au moins un item
+                print("Vous disposez des items suivants :")
+                for item_name, item in self.inventory.items() : 
+                    print(f"   -{item_name} : {item.description}")
+            else:
+                print("Votre inventaire est vide.")
+        
+
+
+    def add(self, item):
+        self.inventory[item.name] = item
+        print(f"{item.name} a été ajouté à l'inventaire.")
+
+    def add(self, item):
+        if self.poids + item.weight <= self.max_weight:
+            self.inventory[item.name] = item
+            self.poids += item.weight
+            print(f"{item.name} a été ajouté à l'inventaire.")
+            return True
+        else:
+            print(f"Vous ne pouvez pas ajouter {item.name}, poids maximum dépassé.")
+            return False
+
+    def remove(self, item_name):
+        if item_name in self.inventory:
+            item = self.inventory.pop(item_name)
+            self.poids -= item.weight
+            print(f"{item.name} a été retiré de l'inventaire.")
+        else:
+            print(f"{item_name} n'est pas dans l'inventaire.")
+    
+      
+

@@ -6,6 +6,8 @@ from room import Room
 from player import Player
 from command import Command
 from actions import Actions
+from item import Item
+from beamer import Beamer
 
 class Game:
 
@@ -31,9 +33,19 @@ class Game:
         self.commands["history"] = history
         back = Command("back", " : permet de revenir dans la salle précédente", Actions.back, 0)
         self.commands["back"] = back
-        #inventory = Command("inventory", " : permet d'accéder à l'inventaire d'objets du joueur", Actions.inventory, 0)
-        #self.commands["inventory"] = inventory
-        
+        look = Command("look", " : permet de voir les objets dans la pièce", Actions.look, 0)
+        self.commands["look"] = look
+        take = Command("take", " : permet de prendre un objet de la pièce et de le placer dans l'inventaire", Actions.take, 1)
+        self.commands["take"] = take
+        drop = Command("drop", " : permet de reposer un objet de la pièce et de l'enlever de l'inventaire", Actions.drop, 1)
+        self.commands["drop"] = drop
+        check = Command("check", " : permet de voir l'inventaire", Actions.check, 0)
+        self.commands["check"] = check
+        use = Command("use", " : utilise un item de ton inventaire", Actions.use, 1)
+        self.commands["use"] = use
+        charge = Command("charge", " : charger un Beamer avec la salle actuelle", Actions.charge, 1)
+        self.commands["charge"] = charge
+
         # Setup rooms
 
         vestiaire1 = Room("Vestiaire1", "dans le vestiaire.")
@@ -55,10 +67,7 @@ class Game:
         stade3 = Room("Stade3", "dans le stade final.")
         self.rooms.append(stade3)
 
-        #tous les items du jeu 
         
-        raquette = Item("raquette","blablabla", 2)  
-
         # Create exits for rooms
 
         vestiaire1.exits = {"N" : None, "E" : entrainement, "S" : None, "O" : bar, "U" : None, "D" : None}
@@ -75,6 +84,16 @@ class Game:
 
         self.player = Player(input("\nEntrez votre nom: "))
         self.player.current_room = vestiaire1
+
+        #tous les items du jeu 
+        
+        raquette1 = Item("raquette1","blablabla", 2) 
+        vestiaire1.inventory[raquette1.name] = raquette1
+        raquette2 = Item("raquette2","blablabla", 2) 
+        vestiaire2.inventory[raquette2.name] = raquette2
+        raquette3 = Item("raquette3","blablabla", 2) 
+        vestiaire2.inventory[raquette3.name] = raquette3
+
 
     # Play the game
     def play(self):

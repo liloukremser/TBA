@@ -169,3 +169,118 @@ class Actions:
             return False
         return game.player.back()
 
+
+    def inventory(game,list_of_words, number_of_parameters): 
+        if len(list_of_words) != number_of_parameters +1:
+            command_word = list_of_words[0]
+            print(MSG0.format(command_word=command_word))
+            return False
+        return game.player.get_inventory()
+
+    
+    def look(game, list_of_words, number_of_parameters): 
+        if len(list_of_words) != number_of_parameters +1:
+            command_word = list_of_words[0]
+            print(MSG0.format(command_word=command_word))
+            return False
+        return game.player.current_room.get_inventory()
+
+
+
+    
+
+    def take(game, list_of_words, number_of_parameters):
+
+        #on vérifie si le nombre de paramètre est correct 
+        if len(list_of_words) != number_of_parameters +1:
+            command_word = list_of_words[0]
+            print(MSG0.format(command_word=command_word))
+            return False
+
+        # on vérifie que l'item à prendre a été spécifié 
+        item_name = list_of_words[1]
+        current_room = game.player.current_room
+
+        #chercher l'item dans l'inventaire de la pièce actuelle
+        
+        if item_name in current_room.inventory:
+            item = current_room.inventory[item_name]
+            #ajouter l'item à l'inventaire du joueur
+            if game.player.add(item):
+            #retirer l'item à l'inventaire de la pièce
+                current_room.inventory.pop(item_name)
+                print(f"Vous avez pris {item_name}.")
+                return True
+            else:
+                print(f"Vous ne pouvez pas orendre {item_name}, poids maximum dépassé.")
+                return False
+        else:
+            print(f"L'item n'est pas dans cette pièce.")
+            return False
+
+    def drop(game, list_of_words, number_of_parameters):
+         #on vérifie si le nombre de paramètre est correct 
+        if len(list_of_words) != number_of_parameters +1:
+            command_word = list_of_words[0]
+            print(MSG0.format(command_word=command_word))
+            return False
+
+        # on vérifie que l'item à prendre a été spécifié 
+        item_name = list_of_words[1]
+        current_room = game.player.current_room
+
+        #chercher l'item dans l'inventaire de la pièce actuelle
+        
+        if item_name in game.player.inventory:
+            item = game.player.inventory[item_name]
+            #ajouter l'item à l'inventaire du joueur 
+            #retirer l'item à l'inventaire de la pièce
+            current_room.inventory[item_name] = item
+            game.player.remove(item_name)
+            print(f"Vous avez déposé {item_name}.")
+            return True
+        else:
+            print(f"{item_name} n'est pas dans votre inventaire")
+            return False
+
+    def check(game, list_of_words, number_of_parameters):
+         #on vérifie si le nombre de paramètre est correct 
+        if len(list_of_words) != number_of_parameters +1:
+            command_word = list_of_words[0]
+            print(MSG0.format(command_word=command_word))
+            return False
+
+        return game.player.get_inventory()
+        
+    def use(game, list_of_words, number_of_parameters):
+        if len(list_of_words) != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG1.format(command_word=command_word))
+            return False
+        
+        item_name = list_of_words[1]
+        item = game.player.inventory.get(item_name, None)
+        
+        if item_name in game.player.inventory:
+            if isinstance(item, Beamer):
+                return item.use(game)
+        else:
+            print(f"L'objet '{item_name}' n'est pas utilisable ou n'est pas un Beamer.")
+            return False
+
+    def charge(game, list_of_words, number_of_parameters):
+        if len(list_of_words) != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG1.format(command_word=command_word))
+            return False
+        
+        item_name = list_of_words[1]
+        item = game.player.inventory.get(item_name, None)
+        print(item_name)
+        
+        if item_name in game.player.inventory:
+            item.charge(game.player.current_room)
+            return True
+        else:
+            print(f"L'objet '{item_name}' ne peut pas être chargé ou n'est pas un Beamer.")
+            return False
