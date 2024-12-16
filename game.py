@@ -55,6 +55,10 @@ class Game:
         stade3 = Room("Stade3", "dans le stade final.")
         self.rooms.append(stade3)
 
+        #tous les items du jeu 
+        
+        raquette = Item("raquette","blablabla", 2)  
+
         # Create exits for rooms
 
         vestiaire1.exits = {"N" : None, "E" : entrainement, "S" : None, "O" : bar, "U" : None, "D" : None}
