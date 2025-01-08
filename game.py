@@ -51,42 +51,42 @@ class Game:
 
         # Setup rooms
 
-        vestiaire1 = Room("Vestiaire1", "dans le vestiaire.")
-        self.rooms.append(vestiaire1)
-        entrainement = Room("Entrainement", "dans la salle d'entraînement.")
-        self.rooms.append(entrainement)
-        bar = Room("Bar", "au bar.")
-        self.rooms.append(bar)
-        stade1 = Room("Stade1", "dans le premier stade.")
-        self.rooms.append(stade1)
-        village = Room("Village", "dans le village.")
-        self.rooms.append(village)
-        stade2 = Room("Stade2", "dans le stade intermédiaire.")
-        self.rooms.append(stade2)
-        vestiaire2 = Room("vestiaire2", "dans le second vestiaire.")
-        self.rooms.append(vestiaire2)
-        sdt = Room("Sdt", "dans la salle des trophées.")
-        self.rooms.append(sdt)
-        stade3 = Room("Stade3", "dans le stade final.")
-        self.rooms.append(stade3)
+        loge = Room("Loge, "dans la loge.")
+        self.rooms.append(loge)
+        plateau = Room("Plateau", "sur le plateau de tournage.")
+        self.rooms.append(plateau)
+        tapis = Room("Tapis", "sur le tapis rouge.")
+        self.rooms.append(tapis)
+        hollywood = Room("Hollywood", "à Hollywood Boulevard.")
+        self.rooms.append(hollywood)
+        scene = Room("Scene", "sur la scène.")
+        self.rooms.append(scene)
+        theatre = Room("Theatre", "dans le théâtre.")
+        self.rooms.append(theatre)
+        toilette = Room("Toilette", "dans les toilettes.")
+        self.rooms.append(toilette)
+        cinema = Room("Cinema", "dans le cinéma.")
+        self.rooms.append(cinema)
+        fanz = Room("Fanz", "dans la fan zone.")
+        self.rooms.append(fanz)
 
         
         # Create exits for rooms
 
-        vestiaire1.exits = {"N" : None, "E" : entrainement, "S" : None, "O" : bar, "U" : None, "D" : None}
-        entrainement.exits = {"N" : None, "E" : None, "S" : stade1, "O" : vestiaire1, "U" : None, "D" : None}
-        bar.exits = {"N" : None, "E" : vestiaire1, "S" : None, "O" : None, "U" : None, "D" : None}
-        stade1.exits = {"N" : None, "E" : None, "S" : None, "O" : None, "U" : village, "D" : None}
-        village.exits = {"N" : None, "E" : None, "S" : None, "O" : stade2, "U" : None, "D" : None}
-        stade2.exits = {"N" : None, "E" : None, "S" : None, "O" : None, "U" : None, "D" : vestiaire2}
-        vestiaire2.exits = {"N" : None, "E" : sdt, "S" : None, "O" : None, "U" : None, "D" : None}
-        sdt.exits = {"N" : None, "E" : stade3, "S" : None, "O" : vestiaire2, "U" : None, "D" : None}
-        stade3.exits = {"N" : None, "E" : None, "S" : None, "O" : None, "U" : None, "D" : None}
+        loge.exits = {"N" : None, "E" : None, "S" : None, "O" : None, "U" : None, "D" : theatre}
+        plateau.exits = {"N" : scene, "E" : None, "S" : None, "O" : cinema, "U" : None, "D" : None}
+        tapis.exits = {"N" : hollywood, "E" : scene, "S" : cinema, "O" : None, "U" : None, "D" : None}
+        hollywood.exits = {"N" : None, "E" : theatre, "S" : tapis, "O" : None, "U" : None, "D" : None}
+        scene.exits = {"N" : theatre, "E" : None, "S" : plateau, "O" : tapis, "U" : None, "D" : None}
+        theatre.exits = {"N" : None, "E" : None, "S" : scene, "O" : hollywood, "U" : loge, "D" : None}
+        toilette.exits = {"N" : None, "E" : None, "S" : None, "O" : None, "U" : cinema, "D" : None}
+        cinema.exits = {"N" : tapis, "E" : plateau, "S" : fanz, "O" : None, "U" : None, "D" : toilette}
+        fanz.exits = {"N" : cinema, "E" : None, "S" : None, "O" : None, "U" : None, "D" : None}
 
         # Setup player and starting room
 
         self.player = Player(input("\nEntrez votre nom: "))
-        self.player.current_room = vestiaire1
+        self.player.current_room = fanz
 
         #tous les items du jeu 
         
