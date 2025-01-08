@@ -8,6 +8,7 @@ from command import Command
 from actions import Actions
 from item import Item
 from beamer import Beamer
+from character import Character
 
 class Game:
 
@@ -45,6 +46,8 @@ class Game:
         self.commands["use"] = use
         charge = Command("charge", " : charger un Beamer avec la salle actuelle", Actions.charge, 1)
         self.commands["charge"] = charge
+        talk = Command("talk", " <someone> : parler avec un personnage", Actions.talk, 1)
+        self.commands["talk"] = talk
 
         # Setup rooms
 
@@ -93,7 +96,11 @@ class Game:
         vestiaire2.inventory[raquette2.name] = raquette2
         raquette3 = Item("raquette3","blablabla", 2) 
         vestiaire2.inventory[raquette3.name] = raquette3
+        
+        # tous les PNJ du jeu 
 
+        pnj1 = Character("pnj1","blabla",["oui c moi", "pouet pouet"])
+        vestiaire1.characters[pnj1.name] = pnj1
 
     # Play the game
     def play(self):
@@ -101,6 +108,13 @@ class Game:
         self.print_welcome()
         # Loop until the game is finished
         while not self.finished:
+            # Faire bouger tous les PNJ avant chaque tour
+            for room in self.rooms:
+            # Faire une copie des clés car le dictionnaire peut être modifié pendant l'itération
+                characters = list(room.characters.keys())
+            for char_name in characters:
+                room.characters[character_name].move()
+
             # Get the command from the player
             self.process_command(input("> "))
         return None

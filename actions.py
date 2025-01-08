@@ -15,6 +15,7 @@
 MSG0 = "\nLa commande '{command_word}' ne prend pas de paramètre.\n"
 # The MSG1 variable is used when the command takes 1 parameter.
 MSG1 = "\nLa commande '{command_word}' prend 1 seul paramètre.\n"
+from character import Character
 
 class Actions:
 
@@ -284,3 +285,19 @@ class Actions:
         else:
             print(f"L'objet '{item_name}' ne peut pas être chargé ou n'est pas un Beamer.")
             return False
+
+    def talk(game, words, number_of_parameters):
+        if len(words) != number_of_parameters + 1:
+            print("\nQue voulez-vous dire ?")
+            return
+    
+        character_name = words[1]
+        current_room = game.player.current_room
+    
+        # Vérifier si le personnage est dans la salle
+        if character_name in current_room.characters:
+            character = current_room.characters[character_name]
+            message = character.get_msg()
+            print(f"\n{character.name} : {message}")
+        else:
+            print(f"\nIl n'y a personne qui s'appelle {character_name} ici.")

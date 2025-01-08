@@ -8,6 +8,7 @@ class Room:
         self.description = description
         self.exits = {}
         self.inventory = {}
+        self.characters = {}
     
     # Define the get_exit method.
     def get_exit(self, direction):
@@ -34,11 +35,14 @@ class Room:
 
     def get_inventory(self):
         try :
-            if len(self.inventory) >= 1: # on regarde si on a au moins un item
+            if len(self.inventory) >= 1 or len(self.characters) >= 1: # on regarde si on a au moins un item
                 print("La pièce contient :")
                 for item_name, item in self.inventory.items() : #item balaye la liste
                     print(f"   -{item_name} : {item.description}")
+                for character_name, character in self.characters.items() : 
+                    print(f"   -{character_name} : {character.description}")
             else:
                 print("Il n'y a rien ici.")
+            
         except Exception as e:
             print(f"Une erreur est survenue... ")
