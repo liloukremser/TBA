@@ -163,7 +163,6 @@ class Actions:
             
 
     def back(game,list_of_words, number_of_parameters):
-        """attention à rajouter une partie pour que le joueur ne puisse pas revenir en arrière si la sortie est à sens unique"""
         if len(list_of_words) != number_of_parameters +1:
             command_word = list_of_words[0]
             print(MSG0.format(command_word=command_word))

@@ -2,9 +2,9 @@
 class Player():
 
     # Define the constructor.
-    def __init__(self, name):
+    def __init__(self, name, current_room=None):
         self.name = name
-        self.current_room = None
+        self.current_room = current_room
         self.history = []
         self.inventory = {}
         self.max_weight = 3
@@ -32,11 +32,11 @@ class Player():
         on fait un try car si la liste est vide, il affiche une liste vide (pas esthétique)"""
         try :
             if len(self.history) > 1: # on regarde si on a visité une pièce au minimum
-                print("Vous êtes déjà allés : \n   -dans le vestiaire.")
+                print("Vous êtes déjà allés : \n   -dans la fan zone.")
                 for room in self.history[:-1] : #room balaye la liste
                     print(f"   -{room.description}")
             else:
-                print("Vous avez visité le vestiaire.")
+                print("Vous avez visité la fan zone.")
         except Exception as e:
             print(f"Une erreur est survenue... ")
                 

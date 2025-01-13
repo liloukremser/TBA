@@ -51,7 +51,7 @@ class Game:
 
         # Setup rooms
 
-        loge = Room("Loge, "dans la loge.")
+        loge = Room("Loge", "dans la loge.")
         self.rooms.append(loge)
         plateau = Room("Plateau", "sur le plateau de tournage.")
         self.rooms.append(plateau)
@@ -91,16 +91,20 @@ class Game:
         #tous les items du jeu 
         
         raquette1 = Item("raquette1","blablabla", 2) 
-        vestiaire1.inventory[raquette1.name] = raquette1
+        loge.inventory[raquette1.name] = raquette1
         raquette2 = Item("raquette2","blablabla", 2) 
-        vestiaire2.inventory[raquette2.name] = raquette2
+        loge.inventory[raquette2.name] = raquette2
         raquette3 = Item("raquette3","blablabla", 2) 
-        vestiaire2.inventory[raquette3.name] = raquette3
+        loge.inventory[raquette3.name] = raquette3
+        stylo = Item("stylo","youpi",2)
+        fanz.inventory[stylo.name] = stylo
         
         # tous les PNJ du jeu 
 
-        pnj1 = Character("pnj1","blabla",["oui c moi", "pouet pouet"])
-        vestiaire1.characters[pnj1.name] = pnj1
+        pnj1 = Character("pnj1",fanz,"blabla",["oui c moi", "pouet pouet"])
+        fanz.characters[pnj1.name] = pnj1
+        pnj2 = Character("pnj2",fanz,"blabla",["oui c moi", "pouet pouet"],False)
+        fanz.characters[pnj2.name] = pnj2
 
     # Play the game
     def play(self):
@@ -108,13 +112,6 @@ class Game:
         self.print_welcome()
         # Loop until the game is finished
         while not self.finished:
-            # Faire bouger tous les PNJ avant chaque tour
-            for room in self.rooms:
-            # Faire une copie des clés car le dictionnaire peut être modifié pendant l'itération
-                characters = list(room.characters.keys())
-            for char_name in characters:
-                room.characters[character_name].move()
-
             # Get the command from the player
             self.process_command(input("> "))
         return None
@@ -136,6 +133,12 @@ class Game:
         else:
             command = self.commands[command_word]
             command.action(self, list_of_words, command.number_of_parameters)
+             # Faire bouger tous les PNJ avant chaque tour
+            for room in self.rooms:
+            # Faire une copie des clés car le dictionnaire peut être modifié pendant l'itération
+                characters = list(room.characters.values())
+                for character in characters:
+                    character.move()
 
     # Print the welcome message
     def print_welcome(self):

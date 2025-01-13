@@ -1,17 +1,20 @@
+import random
+from player import Player
+from config import DEBUG
 
-class Character:
-    def __init__(self, name, description, msgs):
-        self.name = name
-        self.current_room = None
+class Character(Player):
+    def __init__(self, name, current_room, description, msgs, can_move=True):
+        super().__init__(name, current_room)
         self.description = description 
         self.msgs = msgs 
+        self.can_move = can_move
 
     def __str__(self):
         return f"{self.name} : {self.description}, dans la salle :{self.current_room}/n{self.msgs}" 
 
-    def move():
+    def move(self):
         # Une chance sur deux de se déplacer (0 ou 1)
-        if random.randint(0, 1) == 1:
+        if random.randint(0, 1) == 1 and self.can_move:
             # Récupérer les sorties possibles (non None) depuis la salle actuelle
             possible_exits = [room for direction, room in self.current_room.exits.items() if room is not None]
             
@@ -25,6 +28,8 @@ class Character:
                 
                 # Mettre à jour la salle actuelle
                 self.current_room = new_room
+                if DEBUG :
+                    print(f"{self.name} a bougé vers {self.current_room.name}")
                 
                 # Ajouter le PNJ dans la nouvelle salle
                 new_room.characters[self.name] = self
@@ -43,7 +48,7 @@ class Character:
             # Retire et retourne le premier message de la liste
             current_msg = self.msgs.pop(0)
             # Ajoute ce message à l'historique
-            self.msg_history.append(current_msg)
+            self.msgs.append(current_msg)
             return current_msg
         
         return "tg"  # Au cas où il n'y aurait aucun message
