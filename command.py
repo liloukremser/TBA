@@ -1,5 +1,6 @@
 """This file contains the Command class."""
-
+#pylint: disable = too-few-public-methods
+# pas besoin de rajouter de méthodes
 class Command:
     """
     This class represents a command. A command is composed of a command word, 

@@ -1,4 +1,10 @@
 """Description: Game class"""
+#pylint: disable = line-too-long
+#pas possible de les raccourcir
+
+#pylint: disable = too-many-locals
+#pylint: disable = too-many-statements
+#impossible de raccourcir
 
 # Import modules
 
@@ -32,7 +38,7 @@ class Game:
         self.commands["help"] = help
         quit = Command("quit", " : quitter le jeu", Actions.quit, 0)
         self.commands["quit"] = quit
-        go = Command("go", " <direction> : se déplacer dans une direction cardinale (N, E, S, O, U, D)", Actions.go, 1)
+        go = Command("go", " <direction> : se déplacer dans une direction(N, E, S, O, U, D)", Actions.go, 1)
         self.commands["go"] = go
         history = Command("history", " : afficher les salles visitées", Actions.history, 0)
         self.commands["history"] = history
@@ -40,9 +46,9 @@ class Game:
         self.commands["back"] = back
         look = Command("look", " : permet de voir les objets dans la pièce", Actions.look, 0)
         self.commands["look"] = look
-        take = Command("take", " : permet de prendre un objet de la pièce et de le placer dans l'inventaire", Actions.take, 1)
+        take = Command("take", " : prendre un objet de la pièce et de le placer dans l'inventaire", Actions.take, 1)
         self.commands["take"] = take
-        drop = Command("drop", " : permet de reposer un objet de la pièce et de l'enlever de l'inventaire", Actions.drop, 1)
+        drop = Command("drop", " : reposer un objet dans la pièce et de l'enlever de l'inventaire", Actions.drop, 1)
         self.commands["drop"] = drop
         check = Command("check", " : permet de voir l'inventaire", Actions.check, 0)
         self.commands["check"] = check
@@ -71,7 +77,7 @@ class Game:
         self.rooms.append(toilette)
         cinema = Room("Cinema", "dans le cinéma. Une avant-première avec plusieurs fans du nouveau film sorti récemment.")
         self.rooms.append(cinema)
-        fanz = Room("Fanz", "dans la fan zone. La salle est pleine mais heureusement qu'il y a une connaissance dans la foule.")
+        fanz = Room("Fanz", "dans la fan zone. La salle est pleine, mais heureusement, il y a une connaissance dans la foule.")
         self.rooms.append(fanz)
 
 
@@ -111,7 +117,7 @@ class Game:
         hollywood.characters[therock.name] = therock
         zendaya = Character("zendaya",loge,"Actrice aimée de tous",["Vous êtes adorable, merci pour votre soutient."],False)
         loge.characters[zendaya.name] = zendaya
-        bastien = Character("bastien",fanz,"un fan des grandes stars",["J'ai une mission pour toi ! Mais d'abord trouve mon carnet dans le cinéma puis reviens me parler. ", "Il me faut absolument les autographes des stars de Hollywood :) Aide moi ! "],False)
+        bastien = Character("bastien",fanz,"un fan des grandes stars",["J'ai une mission pour toi ! Mais d'abord trouve mon carnet dans le cinéma puis reviens me parler. ", "Il me faut absolument les autographes des stars de Hollywood :) Ramène-les moi ! "],False)
         fanz.characters[bastien.name] = bastien
         melvin = Character("melvin",toilette,"l'hystérique des toilettes",["Donne moi ton carnet !!!!!"],False)
         toilette.characters[melvin.name] = melvin

@@ -2,6 +2,10 @@
 # Description: The actions module.
 from beamer import Beamer
 
+# pylint: disable = no-self-argument
+#sinon les fonctions ne fontionnent plus
+
+#pylint: disable = too-many-branches
 
 # The actions module contains the functions that are called when a command is executed.
 # Each function takes 3 parameters:
@@ -26,6 +30,8 @@ class Actions:
         self.talked_to_brad_pitt = talked_to_brad_pitt
         self.talked_to_melvin = talked_to_melvin
         self.finished = finished
+        self.player = player
+        self.commands = commands
 
     def go(game, list_of_words, number_of_parameters):
         """
@@ -172,6 +178,7 @@ class Actions:
 
 
     def back(game,list_of_words, number_of_parameters):
+        """sert à revenir dans la salle précédente"""
         if len(list_of_words) != number_of_parameters +1:
             command_word = list_of_words[0]
             print(MSG0.format(command_word=command_word))
@@ -180,6 +187,7 @@ class Actions:
 
 
     def inventory(game,list_of_words, number_of_parameters):
+        """ inventaire """
         if len(list_of_words) != number_of_parameters +1:
             command_word = list_of_words[0]
             print(MSG0.format(command_word=command_word))
@@ -188,6 +196,7 @@ class Actions:
 
 
     def look(game, list_of_words, number_of_parameters):
+        """regarder ce qu'il y a dans la pièce """
         if len(list_of_words) != number_of_parameters +1:
             command_word = list_of_words[0]
             print(MSG0.format(command_word=command_word))
@@ -199,7 +208,7 @@ class Actions:
 
 
     def take(game, list_of_words, number_of_parameters):
-
+        """prendre un objet dans la pièce """
         #on vérifie si le nombre de paramètre est correct
         if len(list_of_words) != number_of_parameters +1:
             command_word = list_of_words[0]
@@ -220,13 +229,12 @@ class Actions:
                 current_room.inventory.pop(item_name)
                 print(f"Vous avez pris {item_name}.")
                 return True
-            else:
-                return False
-        else:
-            print(f"L'item n'est pas dans cette pièce.")
             return False
+        print(f"L'item n'est pas dans cette pièce.")
+        return False
 
     def drop(game, list_of_words, number_of_parameters):
+        """reposer un objet de l'inventaire du joueur dans une salle"""
          #on vérifie si le nombre de paramètre est correct
         if len(list_of_words) != number_of_parameters +1:
             command_word = list_of_words[0]
@@ -251,6 +259,7 @@ class Actions:
         return False
 
     def check(game, list_of_words, number_of_parameters):
+        """pour que le joueur puisse voir son inventaire"""
          #on vérifie si le nombre de paramètre est correct
         if len(list_of_words) != number_of_parameters +1:
             command_word = list_of_words[0]
@@ -277,6 +286,7 @@ class Actions:
             return False
 
     def charge(game, list_of_words, number_of_parameters):
+        """ charger le beamer """
         if len(list_of_words) != number_of_parameters + 1:
             command_word = list_of_words[0]
             print(MSG1.format(command_word=command_word))
@@ -289,9 +299,8 @@ class Actions:
         if item_name in game.player.inventory:
             item.charge(game.player.current_room)
             return True
-        else:
-            print(f"L'objet '{item_name}' ne peut pas être chargé ou n'est pas un Beamer.")
-            return False
+        print(f"L'objet '{item_name}' ne peut pas être chargé ou n'est pas un Beamer.")
+        return False
 
     def talk(game, words, number_of_parameters):
         """ donner le message des pnj au joueur"""

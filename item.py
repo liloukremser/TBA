@@ -24,6 +24,7 @@ class Item:
         self.description = description
         self.weight = weight
         self.hidden = hidden
+        self.items ={}
 
     def __str__(self):
         """
