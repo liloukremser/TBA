@@ -1,4 +1,4 @@
-""" classe actions, toute les actions possiblent du joureur"""
+""" classe actions, toute les actions possiblent du joueur"""
 # Description: The actions module.
 from beamer import Beamer
 
@@ -259,7 +259,7 @@ class Actions:
         return False
 
     def check(game, list_of_words, number_of_parameters):
-        """pour que le joueur puisse voir son inventaire"""
+        """regarder l'inventaire du joueur"""
          #on vérifie si le nombre de paramètre est correct
         if len(list_of_words) != number_of_parameters +1:
             command_word = list_of_words[0]

@@ -63,11 +63,11 @@ class Game:
 
         loge = Room("Loge", "dans la loge. On retrouve souvent des célébrités dans ce lieu privé. L'accès est souvent très restreint.")
         self.rooms.append(loge)
-        plateau = Room("Plateau", "sur le plateau de tournage. Un des plus grand film d'action est en train d'être réalisé.")
+        plateau = Room("Plateau", "sur le plateau de tournage. Un des plus grands films d'action est en train d'être réalisé.")
         self.rooms.append(plateau)
-        tapis = Room("Tapis", "sur le tapis rouge. Les costumes des stars sont toutes éblouissantes. On y voit plus rien à cause des flashs des paparazzi.")
+        tapis = Room("Tapis", "sur le tapis rouge. Les costumes des stars sont toutes éblouissantes. On y voit plus rien à cause des flashs des paparazzis.")
         self.rooms.append(tapis)
-        hollywood = Room("Hollywood", "à Hollywood Boulevard. L'une des allées les plus connue au monde.")
+        hollywood = Room("Hollywood", "à Hollywood Boulevard. L'une des allées les plus connues au monde.")
         self.rooms.append(hollywood)
         scene = Room("Scene", "sur la scène. La danse, la musique, le rythme, tout ce mélange dans ce lieu. ")
         self.rooms.append(scene)
@@ -148,7 +148,7 @@ class Game:
 
     # Process the command entered by the player
     def process_command(self, command_string) -> None:
-        """ execution des commandes"""
+        """ exécution des commandes"""
         # Split the command string into a list of words
         list_of_words = command_string.split(" ")
 
