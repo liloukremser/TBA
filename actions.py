@@ -1,4 +1,7 @@
+""" classe actions, toute les actions possiblent du joureur"""
 # Description: The actions module.
+from beamer import Beamer
+
 
 # The actions module contains the functions that are called when a command is executed.
 # Each function takes 3 parameters:
@@ -17,9 +20,8 @@ MSG0 = "\nLa commande '{command_word}' ne prend pas de paramètre.\n"
 # The MSG1 variable is used when the command takes 1 parameter.
 MSG1 = "\nLa commande '{command_word}' prend 1 seul paramètre.\n"
 
-from beamer import Beamer
-
 class Actions:
+    """classe actions fonctions qui sont appelées quand une commande est demandée par le joueur """
     def __init__(self, talked_to_brad_pitt, talked_to_melvin, finished):
         self.talked_to_brad_pitt = talked_to_brad_pitt
         self.talked_to_melvin = talked_to_melvin
@@ -51,7 +53,7 @@ class Actions:
         False
 
         """
- 
+
         player = game.player
         l = len(list_of_words)
         # If the number of parameters is incorrect, print an error message and return False.
@@ -161,12 +163,13 @@ class Actions:
         return True
 
     def history(game,list_of_words, number_of_parameters):
+        """donne l'historique des salles visitées"""
         if len(list_of_words) != number_of_parameters +1:
             command_word = list_of_words[0]
             print(MSG0.format(command_word=command_word))
             return False
         return game.player.get_history()
-  
+
 
     def back(game,list_of_words, number_of_parameters):
         if len(list_of_words) != number_of_parameters +1:
@@ -244,9 +247,8 @@ class Actions:
             game.player.remove(item_name)
             print(f"Vous avez déposé {item_name}.")
             return True
-        else:
-            print(f"{item_name} n'est pas dans votre inventaire")
-            return False
+        print(f"{item_name} n'est pas dans votre inventaire")
+        return False
 
     def check(game, list_of_words, number_of_parameters):
          #on vérifie si le nombre de paramètre est correct
@@ -258,6 +260,7 @@ class Actions:
         return game.player.get_inventory()
 
     def use(game, list_of_words, number_of_parameters):
+        """ utiliser le beamer"""
         if len(list_of_words) != number_of_parameters + 1:
             command_word = list_of_words[0]
             print(MSG1.format(command_word=command_word))
@@ -291,6 +294,7 @@ class Actions:
             return False
 
     def talk(game, words, number_of_parameters):
+        """ donner le message des pnj au joueur"""
         if len(words) != number_of_parameters + 1:
             print("\n A qui voulez-vous parler ?")
             return False
@@ -334,6 +338,6 @@ class Actions:
                 game.talked_to_melvin = True
 
             return True
-        else:
-            print(f"\nIl n'y a personne qui s'appelle {character_name} ici.")
-            return False
+
+        print(f"\nIl n'y a personne qui s'appelle {character_name} ici.")
+        return False

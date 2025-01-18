@@ -1,9 +1,11 @@
+""" classe Character, ce qui concerne les PNJ"""
 import random
 from player import Player
 from config import DEBUG
 
 
 class Character(Player):
+    """classe character"""
     def __init__(self, name, current_room, description, msgs, can_move=True):
         self.name = name
         self.current_room = current_room
@@ -31,7 +33,7 @@ class Character(Player):
                 # Mettre à jour la salle actuelle
                 self.current_room = new_room
                 if DEBUG :
-                    print(f"{self.name} a bougé vers {self.current_room.name}")
+                    print(f"\n {self.name} a bougé vers {self.current_room.name}")
 
                 # Ajouter le PNJ dans la nouvelle salle
                 new_room.characters[self.name] = self
@@ -41,6 +43,7 @@ class Character(Player):
         return False
 
     def get_msg(self):
+        """ pour transmettre le message du pnj au joueur"""
         # Si la liste des messages est vide, on remet tous les messages de l'historique
         if not self.msgs:
             self.msgs = self.msg_history
