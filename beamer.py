@@ -1,6 +1,8 @@
+""" class Beamer"""
 from item import Item
 
 class Beamer(Item):
+    """ classe du beamer """
     def __init__(self, name, description, weight, teleport_room=None):
         super().__init__(name, description, weight)
         self.teleport_room = teleport_room  # La salle où le Beamer peut téléporter
@@ -16,9 +18,9 @@ class Beamer(Item):
             print(game.player.current_room.get_long_description())
             game.player.print_history()
             return True
-        else:
-            print("Le Beamer n'est pas chargé avec une destination.")
-            return False
+
+        print("Le Beamer n'est pas chargé avec une destination.")
+        return False
 
     def charge(self, current_room):
         """

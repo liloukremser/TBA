@@ -1,4 +1,4 @@
-# Description: Game class
+"""Description: Game class"""
 
 # Import modules
 
@@ -7,21 +7,25 @@ from player import Player
 from command import Command
 from actions import Actions
 from item import Item
-from beamer import Beamer
 from character import Character
+from conditions import Conditions
+
 
 class Game:
-
+    """Description: Game class"""
     # Constructor
     def __init__(self):
         self.finished = False
         self.rooms = []
         self.commands = {}
         self.player = None
-    
+        self.condition = None
+        self.talked_to_brad_pitt = False
+        self.talked_to_melvin = False
+
     # Setup the game
     def setup(self):
-
+        """ inventaire et initialisation de tout"""
         # Setup commands
 
         help = Command("help", " : afficher cette aide", Actions.help, 0)
@@ -51,26 +55,26 @@ class Game:
 
         # Setup rooms
 
-        loge = Room("Loge", "dans la loge.")
+        loge = Room("Loge", "dans la loge. On retrouve souvent des célébrités dans ce lieu privé. L'accès est souvent très restreint.")
         self.rooms.append(loge)
-        plateau = Room("Plateau", "sur le plateau de tournage.")
+        plateau = Room("Plateau", "sur le plateau de tournage. Un des plus grand film d'action est en train d'être réalisé.")
         self.rooms.append(plateau)
-        tapis = Room("Tapis", "sur le tapis rouge.")
+        tapis = Room("Tapis", "sur le tapis rouge. Les costumes des stars sont toutes éblouissantes. On y voit plus rien à cause des flashs des paparazzi.")
         self.rooms.append(tapis)
-        hollywood = Room("Hollywood", "à Hollywood Boulevard.")
+        hollywood = Room("Hollywood", "à Hollywood Boulevard. L'une des allées les plus connue au monde.")
         self.rooms.append(hollywood)
-        scene = Room("Scene", "sur la scène.")
+        scene = Room("Scene", "sur la scène. La danse, la musique, le rythme, tout ce mélange dans ce lieu. ")
         self.rooms.append(scene)
-        theatre = Room("Theatre", "dans le théâtre.")
+        theatre = Room("Theatre", "dans le théâtre. La pièce est somptueuse mais les commères font rages")
         self.rooms.append(theatre)
-        toilette = Room("Toilette", "dans les toilettes.")
+        toilette = Room("Toilette", "dans les toilettes. Une envie pressante ?")
         self.rooms.append(toilette)
-        cinema = Room("Cinema", "dans le cinéma.")
+        cinema = Room("Cinema", "dans le cinéma. Une avant-première avec plusieurs fans du nouveau film sorti récemment.")
         self.rooms.append(cinema)
-        fanz = Room("Fanz", "dans la fan zone.")
+        fanz = Room("Fanz", "dans la fan zone. La salle est pleine mais heureusement qu'il y a une connaissance dans la foule.")
         self.rooms.append(fanz)
 
-        
+
         # Create exits for rooms
 
         loge.exits = {"N" : None, "E" : None, "S" : None, "O" : None, "U" : None, "D" : theatre}
@@ -88,37 +92,57 @@ class Game:
         self.player = Player(input("\nEntrez votre nom: "))
         self.player.current_room = fanz
 
-        #tous les items du jeu 
-        
-        raquette1 = Item("raquette1","blablabla", 2) 
-        loge.inventory[raquette1.name] = raquette1
-        raquette2 = Item("raquette2","blablabla", 2) 
-        loge.inventory[raquette2.name] = raquette2
-        raquette3 = Item("raquette3","blablabla", 2) 
-        loge.inventory[raquette3.name] = raquette3
-        stylo = Item("stylo","youpi",2)
-        fanz.inventory[stylo.name] = stylo
-        
-        # tous les PNJ du jeu 
+        #tous les items du jeu
 
-        pnj1 = Character("pnj1",fanz,"blabla",["oui c moi", "pouet pouet"])
-        fanz.characters[pnj1.name] = pnj1
-        pnj2 = Character("pnj2",fanz,"blabla",["oui c moi", "pouet pouet"],False)
-        fanz.characters[pnj2.name] = pnj2
+        carnet = Item("carnet","c'est le carnet de Bastien avec les autographes qu'il a déjà", 2)
+        cinema.inventory[carnet.name] = carnet
+        autographez = Item("autographez","autographe de Zendaya", 2, hidden=True)
+        loge.inventory[autographez.name.lower()] = autographez
+        autographetr = Item("autographetr","autographe de The Rock", 2, hidden=True)
+        hollywood.inventory[autographetr.name.lower()] = autographetr
+        stylo = Item("stylo","ce stylo vous permet de faire signer les autographes",2, hidden = True)
+        plateau.inventory[stylo.name] = stylo
+
+        # tous les PNJ du jeu
+
+        bradpitt = Character("bradpitt",plateau,"Un acteur séduisant à en perdre son but.",["Dommage pour toi ;)"])
+        plateau.characters[bradpitt.name] = bradpitt
+        therock = Character("therock",hollywood,"Un acteur intimidant mais avec le coeur sur la main.",["Tu veux me demander une chose crevette ?"],False)
+        hollywood.characters[therock.name] = therock
+        zendaya = Character("zendaya",loge,"Actrice aimée de tous",["Vous êtes adorable, merci pour votre soutient."],False)
+        loge.characters[zendaya.name] = zendaya
+        bastien = Character("bastien",fanz,"un fan des grandes stars",["J'ai une mission pour toi ! Mais d'abord trouve mon carnet dans le cinéma puis reviens me parler. ", "Il me faut absolument les autographes des stars de Hollywood :) Aide moi ! "],False)
+        fanz.characters[bastien.name] = bastien
+        melvin = Character("melvin",toilette,"l'hystérique des toilettes",["Donne moi ton carnet !!!!!"],False)
+        toilette.characters[melvin.name] = melvin
+        realisateur = Character("realisateur",toilette,"il est très strict pour que tout soit en ordre mais il est indispensable dans le bon déroulement des choses.",["Pour réussir il te faut absolument un stylo, regarde autour de toi."],False)
+        plateau.characters[realisateur.name] = realisateur
+        paparazzi = Character("paparazzi",toilette,"C'est un vrai espion, il sait tout sur tout.",["J'ai vu The Rock près de Hollywood Boulevard."],False)
+        tapis.characters[paparazzi.name] = paparazzi
+        commere = Character("commere",theatre,"Elle est à l'affut du dernier potin mais elle est très fourbe.",["Il parait que la personne dans les toilettes est une star très connue sous couverture."],False)
+        theatre.characters[commere.name] = commere
+
+
+
+        self.condition = Conditions(self)
 
     # Play the game
     def play(self):
+        """ jeu """
         self.setup()
         self.print_welcome()
         # Loop until the game is finished
         while not self.finished:
             # Get the command from the player
             self.process_command(input("> "))
+            end_message = self.condition.check_conditions()
+            if end_message:
+                self.finished = True
         return None
 
     # Process the command entered by the player
     def process_command(self, command_string) -> None:
-
+        """ execution des commandes"""
         # Split the command string into a list of words
         list_of_words = command_string.split(" ")
 
@@ -142,16 +166,17 @@ class Game:
 
     # Print the welcome message
     def print_welcome(self):
+        """ accueil du joueur """
         print(f"\nBienvenue {self.player.name} dans ce jeu d'aventure !")
         print("Entrez 'help' si vous avez besoin d'aide.")
         #
         print(self.player.current_room.get_long_description())
-    
+
 
 def main():
-    # Create a game object and play the game
+    """Create a game object and play the game"""
     Game().play()
-    
+
 
 if __name__ == "__main__":
     main()
